@@ -59,4 +59,22 @@ def exp1(b, n)
     end
 end
 
+class Array
+    def deep_dup #=> copies the objects within objects taking each sub array and creating a copy that can minipulated with out changing the original array.
+        self.map { |el| el.is_a?(Array) ? el.deep_dup : el }
+    end
+end
+
+def fibonacci(n) 
+    if n <= 2
+        [0,1].take(n) #=> take will return an array of the first n values 
+    else
+        fibs = fibonacci(n-1)
+        fibs << fibs[-2] + fibs[-1]
+    end
+end
+
+
+
+
 
