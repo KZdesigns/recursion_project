@@ -75,6 +75,22 @@ def fibonacci(n)
 end
 
 
+def bsearch(array, target)
+    # basecase
+    # if the array.length == 1 && target == array[0]
+    
+    
+
+    # pivot element = array.length / 2
+    # is the target <=> 
+    
+    # if greater array.pop
+    # if less shift 
+    
+
+end
+
+
 
 
 
