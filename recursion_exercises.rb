@@ -76,19 +76,33 @@ end
 
 
 def bsearch(array, target)
-    # basecase
-    # if the array.length == 1 && target == array[0]
-    
-    
+    return nil if array.empty?
 
-    # pivot element = array.length / 2
-    # is the target <=> 
-    
-    # if greater array.pop
-    # if less shift 
-    
+    mid_index = array.length / 2
+
+    case target <=> array[mid_index]
+    when -1
+        bsearch(array.take(mid_index), target)
+    when 0
+        mid_index
+    when 1
+        subs = bsearch(array.drop(mid_index + 1), target)
+        subs.nil? ? nil : (mid_index + 1) + subs
+    end
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
