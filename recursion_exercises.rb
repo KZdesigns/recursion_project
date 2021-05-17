@@ -2,14 +2,14 @@
 
 # range iteratively
 def range(start_point, end_point)
-    return [] if end_point < start_point
-    range_array = []
+    return [] if end_point < start_point # base case return empty array if the end point is smaller than start_point meaning start point should always be small to run
+    range_array = [] # setting range_array variable to an empty array
 
-    (start_point...end_point).each do |num|
-        range_array << num
+    (start_point...end_point).each do |num| # taking each number between start and end point
+        range_array << num # shoveling into the range
     end
 
-    range_array
+    range_array # returned the range
 end
 
 # test
@@ -18,19 +18,20 @@ end
 
 # range recursively
 def range(start_point, end_point)
-    return [] if end_point < start_point
-    end_point_less_one = end_point - 1
-    return end_point_less_one if start_point == end_point_less_one
+    return [] if end_point < start_point # base case return empty array if the end point is smaller than start_point meaning start point should always be small to run
+    end_point_less_one = end_point - 1 # takes the end point and return a end point less 1 
+    return end_point_less_one if start_point == end_point_less_one # return the end_point less 1 if the start point == end_point_less_one
+    # example if start = 5 & end = 6; end_point_less_one = 5 return 5
  
-   new_start = start_point + 1
-   range_array = [start_point] << range(new_start, end_point)
-   range_array.flatten
+   new_start = start_point + 1 # adding 1 to the start point for recusive call
+   range_array = [start_point] << range(new_start, end_point) # range_array = the array of the original start_point << recursive range with the new_start 
+   range_array.flatten # flatting the range array to equal a single array
 end
 
 # range recursively -> Best Solution
-def range(min, max)
-    return [] if min >= max
-    range(min, max -1) << max - 1
+def range(min, max) # range accepts min and max parameter
+    return [] if min >= max #base case return empty array if min greater or equal to the max - 1
+    range(min, max -1) << max - 1 # recursive call range passing the min and decreasing the max shuffling in the original max - 1 
 end
 
 # Exponentiation
@@ -92,11 +93,82 @@ def bsearch(array, target)
 
 end
 
+class Array
+  def merge_sort
+    return self if count < 2
+
+    middle = count / 2
+
+    left, right = self.take(middle), self.drop(middle)
+    sorted_left, sorted_right = left.merge_sort, right.merge_sort
+
+    merge(sorted_left, sorted_right)
+
+  end
+
+  def merge(left, right)
+    merged_array = []
+
+    until left.empty? || right.empty? 
+        if left.first < right.first
+            merged_array << left.shift
+        else
+            merged_array << right.shift
+        end
+    end
+
+    merged_array + left + right
+  end
+
+    
+end
 
 
+def subsets(array)
+    return [[]] if array.empty?
+
+    subs = subsets(array.take(array.count - 1))
+    subs.concat(subs.map { |sub| sub + [array.last] })
+end
+
+class Array
+
+    def permutations(array)
+        return [array] if array.length <= 1
+
+        first = array.shift
+        perms = permutations(array)
+        total_permutations = []
+
+        perms.each do |perm|
+            (0..perm.length).each do |i|
+                total_permutations << perm[0...i] + [first] + perm[i + -1]
+            end
+        end
+
+        total_permutations
+    end
+
+end
 
 
+def make_change(amount, coins = [25, 10, 5, 1])
+    return [] if amount == 0
 
+    best_change = nil
+
+    coins.each do |coin|
+        next if coin > amount
+        change_for_rest = make_change(amount - coin, coins )
+        change = [coin] + change_for_rest
+
+        if best_change.nil? || change.count < best_change.count
+            best_change = change
+        end
+    end
+    
+    best_change 
+end
 
 
 
